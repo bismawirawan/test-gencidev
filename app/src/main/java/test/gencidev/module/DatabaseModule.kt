@@ -18,8 +18,8 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun providesRoom(@ApplicationContext context: Context): Database {
-        return Room.databaseBuilder(context, Database::class.java, "test-gencidev.db")
+    fun providesRoom(@ApplicationContext context: Context): DataDb {
+        return Room.databaseBuilder(context, DataDb::class.java, "test-gencidev.db")
             .fallbackToDestructiveMigration()
             .build()
     }

@@ -6,32 +6,40 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_white_gray_outline"
     android:orientation="vertical"
-    android:layout_marginTop="@dimen/_5sdp"
-    android:padding="@dimen/_5sdp">
+    android:padding="@dimen/_10sdp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_day"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_5sdp"
         android:text="Day Off"
         android:textColor="@color/black"
         android:textStyle="bold"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_keterangan"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_5sdp"
         android:text="Day Off"
         android:textColor="@color/black"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_cuti"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_5sdp"
         android:text="Cuti"
         android:textColor="@color/grey_dark"/>
+
+    <Button
+        android:id="@+id/btn_tutup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:padding="@dimen/_10sdp"
+        android:text="tutup"/>
 
 </LinearLayout>

@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import test.gencidev.database.entity.DataEntity
 import test.gencidev.database.dao.DaoData
+import test.gencidev.database.entity.DayOffEntity
 
-@Database(entities = [DataEntity::class], version = 1, exportSchema = false)
+@Database(entities = [DayOffEntity::class], version = 1, exportSchema = false)
 abstract class DataDb: RoomDatabase() {
     companion object Companion {
         private var instance: DataDb? = null
