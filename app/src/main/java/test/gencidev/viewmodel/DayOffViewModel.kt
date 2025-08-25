@@ -1,6 +1,5 @@
 package test.gencidev.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,10 +9,8 @@ import test.gencidev.model.response.area.DayOffModel
 import test.gencidev.network.services.DayOffServices
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import test.gencidev.database.DataDb
 import test.gencidev.database.dao.DaoData
 import test.gencidev.database.entity.DayOffEntity
-import test.gencidev.extensions.isLog
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,25 +29,22 @@ class DayOffViewModel @Inject constructor(
             try {
                 val response = services.dayOff(data)
                 if (response.isNotEmpty()) {
-                    // Save to database
                     saveDayOffsToDatabase(response)
 
                     dayOffResponse.postValue(response)
                     dataState.sendAction(UiState.Success)
                 } else {
-                    // Try to load from database if API returns empty
                     loadFromDatabase()
                 }
             } catch (error: Exception) {
                 error.printStackTrace()
-                // On API error, try to load from database
                 loadFromDatabase()
             }
         }
     }
 
     fun checkDatabaseAndLoadData() {
-        dataState.sendAction(UiState.Loading) // Add loading state
+        dataState.sendAction(UiState.Loading)
         viewModelScope.launch {
             try {
                 val entities = getDayOffsFromDatabase()
@@ -68,7 +62,6 @@ class DayOffViewModel @Inject constructor(
                     dataState.sendAction(UiState.Success)
                     databaseCheckResult.postValue(DatabaseCheckResult.HasData)
                 } else {
-                    // No data in database
                     dataState.sendAction(UiState.Error("No internet."))
                     databaseCheckResult.postValue(DatabaseCheckResult.NoData)
                 }

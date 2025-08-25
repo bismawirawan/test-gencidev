@@ -56,33 +56,8 @@ class MainActivity : BaseActivity() {
                 } else {
                     isConnect = false
                     isLog("network disconnect")
-                    viewModel.dataState.removeObservers(this)
-                    observeNonNull(viewModel.dataState) { state ->
-                        when (state) {
-                            UiState.Loading -> {
-                                binding.btnAmbil.goGone()
-                                binding.loading.goVisible()
-                                binding.recycler.goGone()
-                            }
-
-                            UiState.Success -> {
-                                binding.btnAmbil.goGone()
-                                binding.loading.goGone()
-                                binding.recycler.goVisible()
-                            }
-
-                            is UiState.Error -> {
-                                binding.btnAmbil.goGone()
-                                binding.loading.goGone()
-                                binding.recycler.goVisible()
-                                toast(state.message)
-                            }
-                        }
-                    }
-
-                    viewModel.checkDatabaseAndLoadData()
                 }
-            } catch (error: kotlin.Exception) {
+            } catch (error: Exception) {
                 isLog("error: ${error.message}")
             }
 
@@ -131,6 +106,36 @@ class MainActivity : BaseActivity() {
             } else
                 toast("No internet")
         }
+
+        checkDb()
+    }
+
+    private fun checkDb() {
+        viewModel.dataState.removeObservers(this)
+        viewModel.checkDatabaseAndLoadData()
+        observeNonNull(viewModel.dataState) { state ->
+            when (state) {
+                UiState.Loading -> {
+                    binding.btnAmbil.goGone()
+                    binding.loading.goVisible()
+                    binding.recycler.goGone()
+                }
+
+                UiState.Success -> {
+                    binding.btnAmbil.goGone()
+                    binding.loading.goGone()
+                    binding.recycler.goVisible()
+                }
+
+                is UiState.Error -> {
+                    binding.btnAmbil.goGone()
+                    binding.loading.goGone()
+                    binding.recycler.goVisible()
+                    toast(state.message)
+                }
+            }
+        }
+
     }
 
     private fun checkNetworkAndGetData(year: String) {
@@ -220,9 +225,8 @@ class MainActivity : BaseActivity() {
         val years = mutableListOf<String>()
 
         val startYear = 2020
-        val endYear = currentYear + 2
 
-        for (year in startYear..endYear) {
+        for (year in startYear..currentYear) {
             years.add(year.toString())
         }
 
