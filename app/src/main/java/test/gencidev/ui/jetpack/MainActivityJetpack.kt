@@ -366,7 +366,7 @@ fun YearPickerDialog(
 ) {
     val currentYear = Calendar.getInstance().get(Calendar.YEAR)
     val years = remember {
-        (2020..(currentYear + 2)).toList()
+        (2020..(currentYear)).toList()
     }
 
     Dialog(onDismissRequest = onDismiss) {
